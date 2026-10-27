@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>kepler.gl embedded map</title>
+
+    <!--Uber Font-->
+    <link rel="stylesheet" href="https://d1a3f4spazzrp4.cloudfront.net/kepler.gl/uber-fonts/4.0.0/superfine.css">
+
+    <!--Kepler css-->
+    <link href="https://unpkg.com/kepler.gl@3.3.0-alpha.18/umd/keplergl.min.css" rel="stylesheet">
+
+    <!--MapLibre css-->
+    <link href="https://unpkg.com/maplibre-gl@^4/dist/maplibre-gl.css" rel="stylesheet">
+
+    <!--
+      React >= 19 no longer ships UMD builds, so we load React and the other
+      peer dependencies as ES modules from esm.sh via an import map, then
+      expose them as window globals that the kepler.gl UMD bundle expects.
+
+      es-module-shims runs in "shim mode" so the page also works when opened
+      as a local file:// (native import maps are blocked under file://).
+    -->
+    <script>
+      window.esmsInitOptions = {shimMode: true, version: '2.8.1'};
+    </script>
+    <script async src="https://ga.jspm.io/npm:es-module-shims@2.8.1/dist/es-module-shims.js" crossorigin="anonymous"></script>
+
+    <script type="importmap-shim">
+      {
+        "imports": {
+          "react":              "https://esm.sh/react@19.1.0",
+          "react/jsx-runtime":  "https://esm.sh/react@19.1.0/jsx-runtime",
+          "react-dom":          "https://esm.sh/react-dom@19.1.0?external=react",
+          "react-dom/client":   "https://esm.sh/react-dom@19.1.0/client?external=react",
+          "redux":              "https://esm.sh/redux@5.0.1",
+          "react-redux":        "https://esm.sh/react-redux@9.3.0?external=react,react-dom,redux",
+          "styled-components":  "https://esm.sh/styled-components@6.1.19?external=react,react-dom"
+        }
+      }
+    </script>
+
+    <!--
+      Expose the ES modules as globals for the kepler.gl UMD bundle, then
+      dynamically load that bundle and run the bootstrap scripts once ready.
+    -->
+    <script type="module-shim">
+      import * as React            from 'react';
+      import * as ReactDOM         from 'react-dom';
+      import * as ReactDOMClient   from 'react-dom/client';
+      import * as Redux            from 'redux';
+      import * as ReactRedux       from 'react-redux';
+      import * as StyledComponents from 'styled-components';
+
+      window.React       = React.default || React;
+      window.ReactDOM    = Object.assign({}, ReactDOM.default || ReactDOM, ReactDOMClient);
+      window.Redux       = Redux.default || Redux;
+      window.ReactRedux  = ReactRedux.default || ReactRedux;
+      window.styled      = Object.assign(StyledComponents.default, StyledComponents);
+
+      function loadScript(src) {
+        return new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          s.src = src; s.crossOrigin = 'anonymous';
+          s.onload = resolve; s.onerror = reject;
+          document.head.appendChild(s);
+        });
+      }
+
+      loadScript('https://unpkg.com/kepler.gl@3.3.0-alpha.18/umd/keplergl.min.js')
+        .then(function() {
+          document.querySelectorAll('script[type="text/kepler-bootstrap"]').forEach(function(node) {
+            var s = document.createElement('script');
+            s.text = node.textContent;
+            document.body.appendChild(s);
+          });
+        })
+        .catch(function(err) { console.error('kepler.gl: failed to load UMD bundle', err); });
+    </script>
+
+    <style type="text/css">
+      body {margin: 0; padding: 0; overflow: hidden;}
+    </style>
+
+    <script>
+      const MAPBOX_TOKEN = "";
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <script type="text/kepler-bootstrap">
+      /** STORE **/
+      const reducers = (function createReducers(redux, keplerGl) {
+        return redux.combineReducers({
+          keplerGl: keplerGl.keplerGlReducer.initialState({
+            uiState: {
+              readOnly: false,
+              currentModal: null
+            }
+          })
+        });
+      }(Redux, KeplerGl));
+
+      const middleWares = (function createMiddlewares(keplerGl) {
+        return keplerGl.enhanceReduxMiddleware([]);
+      }(KeplerGl));
+
+      const enhancers = (function createEnhancers(redux, middles) {
+        return redux.applyMiddleware(...middles);
+      }(Redux, middleWares));
+
+      const store = (function createStore(redux, enhancers) {
+        return redux.legacy_createStore(reducers, {}, redux.compose(enhancers));
+      }(Redux, enhancers));
+      /** END STORE **/
+
+      /** COMPONENTS **/
+      var KeplerElement = (function makeKeplerElement(react, keplerGl, mapboxToken) {
+        return function App() {
+          var _useState = react.useState({
+            width: window.innerWidth,
+            height: window.innerHeight
+          });
+          var windowDimension = _useState[0];
+          var setDimension = _useState[1];
+          react.useEffect(function sideEffect() {
+            function handleResize() {
+              setDimension({width: window.innerWidth, height: window.innerHeight});
+            }
+            window.addEventListener('resize', handleResize);
+            return function() { window.removeEventListener('resize', handleResize); };
+          }, []);
+          return react.createElement(
+            'div',
+            {style: {position: 'absolute', left: 0, width: '100vw', height: '100vh'}},
+            react.createElement(keplerGl.KeplerGl, Object.assign({
+              mapboxApiAccessToken: mapboxToken,
+              id: "map",
+              width: windowDimension.width,
+              height: windowDimension.height,
+              appName: "kepler.gl"
+            }, undefined !== undefined ? {theme: undefined} : {}))
+          );
+        };
+      }(React, KeplerGl, MAPBOX_TOKEN));
+
+      const app = (function createReactReduxProvider(react, reactRedux, KeplerElement) {
+        return react.createElement(
+          reactRedux.Provider,
+          {store},
+          react.createElement(KeplerElement, null)
+        );
+      }(React, ReactRedux, KeplerElement));
+      /** END COMPONENTS **/
+
+      /** Render **/
+      (function render(reactDOM, app) {
+        const root = reactDOM.createRoot(document.getElementById('app'));
+        root.render(app);
+      }(ReactDOM, app));
+    </script>
+
+    <script type="text/kepler-bootstrap">
+      (function customize(keplerGl, store) {
+        var datasets = [];
+  datasets.push({info: {id: "earthquakes", label: "earthquakes"}, data: keplerGl.processCsvData("latitude,longitude,magnitude\r\n35.6762,139.6503,7.2\r\n37.7749,-122.4194,6.8\r\n")});
+
+        var config = {};
+
+        window.setTimeout(function() {
+          store.dispatch(keplerGl.addDataToMap({
+            datasets: datasets,
+            config: config,
+            options: {
+              centerMap: true
+            }
+          }));
+        }, 500);
+      }(KeplerGl, store));
+    </script>
+  </body>
+</html>

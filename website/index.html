@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>On Shaky Grounds â€” Geological Intelligence</title>
+
+    <meta name="description" content="Machine learning earthquake prediction analyzing 180,000+ seismic records across three global databases.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="vendor/leaflet.css">
+
+    <link rel="stylesheet" href="css/styles.css?v=16?v=16">
+
+</head>
+
+<body>
+
+
+
+    <!-- â”€â”€ Navigation â”€â”€ -->
+
+    <nav>
+
+        <div class="nav-inner">
+
+            <a href="#hero" class="nav-logo">
+
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-terra)" stroke-width="2" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+
+                On Shaky Grounds
+
+            </a>
+
+            <!-- Hamburger Menu Icon -->
+
+            <div class="hamburger" id="hamburger-menu">
+
+                <span></span><span></span><span></span>
+
+            </div>
+
+
+
+            <div class="nav-links" id="nav-menu">
+
+                
+                <a href="#archives" data-section="archives">The Archives</a>
+
+                <a href="#simulator" data-section="simulator">Simulator</a>
+
+                <a href="#models" data-section="models">Predictive Models</a>
+
+                <a href="#faultlines" data-section="faultlines">Tectonic Map</a>
+
+                <a href="#risk" data-section="risk">Risk Zones</a>
+
+                
+            </div>
+
+        </div>
+
+        
+
+        <!-- Live Ticker -->
+
+        <div id="live-ticker">
+
+            <span class="pulse-dot"></span> <span style="color:var(--accent-terra);">LIVE USGS FEED:</span> <marquee id="ticker-content" scrollamount="4">Fetching live seismic data...</marquee>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- â”€â”€ Hero â”€â”€ -->
+
+    <section id="hero" class="page-section active-page">
+
+        <div class="content-wrapper">
+
+            <h4 class="animate-on-scroll">Expedition 01 â€” Seismic Intelligence</h4>
+
+            <h1 class="animate-on-scroll delay-100">When the Earth<br>Fractures</h1>
+
+            <p class="lead animate-on-scroll delay-200">
+
+                An expedition into global seismic activity. Five machine learning models trained on 198,000+ geological records â€” predicting magnitude, classifying severity, and mapping the planet's hidden fault lines.
+
+            </p>
+
+            <div class="hero-stats animate-on-scroll delay-200">
+
+                <div class="hero-stat">
+
+                    <div class="stat-number metric-value" data-target="198275">0</div>
+
+                    <div class="stat-label">Geological Records</div>
+
+                </div>
+
+                <div class="hero-stat">
+
+                    <div class="stat-number metric-value" data-target="86" data-suffix="%">0</div>
+
+                    <div class="stat-label">Severity Accuracy</div>
+
+                </div>
+
+                <div class="hero-stat">
+
+                    <div class="stat-number metric-value" data-target="170" data-suffix=" yrs">0</div>
+
+                    <div class="stat-label">Historical Span</div>
+
+                </div>
+
+            </div>
+
+            <div class="hero-references animate-on-scroll delay-200" style="margin-top: 6rem; border-top: 1px solid rgba(155,176,158,0.2); padding-top: 2rem;">
+
+                <h4 style="color: var(--text-sage); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem;">Project References</h4>
+
+                <ul style="list-style: none; padding: 0; font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; columns: 1;">
+
+                    <li style="margin-bottom: 0.5rem;">[1] A. Majmudar et al., â€œApplication of machine learning algorithms for earthquake magnitude prediction,â€ Journal of Seismology, 2025.</li>
+
+                    <li style="margin-bottom: 0.5rem;">[2] R. B. Smith and M. Johnson, â€œA systematic review of AI in seismology,â€ Computational Geosciences, 2024.</li>
+
+                    <li style="margin-bottom: 0.5rem;">[3] K. Reddy, â€œForecasting seismic activity using Random Forest and XGBoost,â€ Artificial Intelligence in Earth Science, 2023.</li>
+
+                    <li><em>Access the navigation menu (top right) to explore Predictive Models, Tectonic Risk Maps, and the Interactive Simulator.</em></li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- â”€â”€ The Archives â”€â”€ -->
+
+    <section id="archives" class="organic-section page-section">
+
+        <div class="content-wrapper">
+
+            <div class="flow-grid">
+
+                <div class="flow-text animate-on-scroll">
+
+                    <h4>The Archives</h4>
+
+                    <h2>Four sources,<br>one fractured picture.</h2>
+
+                    <p class="lead" style="font-size: 1.1rem; margin-top: 2rem;">
+
+                        Earthquake analysis requires multi-scale data. The USGS catalog provides precise instrumental measurements. NOAA captures the human toll â€” casualties and destruction. The macroseismic database records how shaking was physically felt in cities, bridging source physics and lived experience.
+
+                    </p>
+
+                </div>
+
+                <div class="flow-visual animate-on-scroll delay-100">
+
+                    <div class="dataset-flow" id="datasets-container">
+
+                        <!-- Dynamically filled by app.js -->
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ── Interactive Simulator ── -->
+
+    <section id="simulator" class="organic-section alt page-section">
+
+        <div class="content-wrapper">
+
+            <div class="animate-on-scroll">
+
+                <h4>Interactive Sandbox</h4>
+
+                <h2>Prediction Simulator</h2>
+
+                <p class="lead" style="font-size: 1.1rem; margin-top: 1rem; max-width: 820px;">
+
+                    Simulate earthquake scenarios using calibrated geophysical algorithms and regional machine learning models. Toggle between the Global Geophysical Engine and the specialized India Regional Model.
+
+                </p>
+
+                
+
+                <!-- Subdued Model Selector Tabs -->
+
+                <div class="tab-nav" style="margin-top: 2rem; margin-bottom: 2rem; gap: 2rem;">
+
+                    <button class="tab-btn sim-mode-tab active" data-sim-mode="global" onclick="switchSimulatorMode('global')">1. Global Geophysical Engine</button>
+
+                    <button class="tab-btn sim-mode-tab" data-sim-mode="india" onclick="switchSimulatorMode('india')">2. India Regional Model (17,805 Records)</button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Panel 1: Global Simulator -->
+
+            <div id="sim-panel-global" class="sim-panel active">
+
+                <div class="animate-on-scroll">
+
+                    <span style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-sage);">Historical &amp; Benchmark Presets:</span>
+
+                    <div class="sim-presets-bar" id="sim-presets-container">
+
+                        <button class="sim-preset-btn active" data-preset="tokyo">Tokyo Bay (M8.2 Megathrust)</button>
+
+                        <button class="sim-preset-btn" data-preset="cascadia">Cascadia (M9.0 Subduction)</button>
+
+                        <button class="sim-preset-btn" data-preset="sanandreas">San Andreas (M7.9 Strike-Slip)</button>
+
+                        <button class="sim-preset-btn" data-preset="nepal">Himalayas (M7.8 Collision)</button>
+
+                        <button class="sim-preset-btn" data-preset="sumatra">Sumatra Trench (M9.1 Megathrust)</button>
+
+                        <button class="sim-preset-btn" data-preset="turkey">East Anatolian (M7.8 Strike-Slip)</button>
+
+                        <button class="sim-preset-btn" data-preset="chile">Valdivia Trench (M9.5 Subduction)</button>
+
+                        <button class="sim-preset-btn" data-preset="newmadrid">New Madrid (M7.5 Intraplate)</button>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="flow-grid" style="align-items: flex-start; gap: 4rem; margin-top: 1rem;">
+
+                    <!-- Left: Geological Parameters -->
+
+                    <div class="simulator-controls animate-on-scroll">
+
+                        <div class="control-group">
+
+                            <label>Latitude: <span id="sim-lat-val" class="sim-val">35</span>&deg;</label>
+
+                            <input type="range" id="sim-lat" min="-90" max="90" value="35" step="1">
+
+                        </div>
+
+                        <div class="control-group">
+
+                            <label>Longitude: <span id="sim-lon-val" class="sim-val">139</span>&deg;</label>
+
+                            <input type="range" id="sim-lon" min="-180" max="180" value="139" step="1">
+
+                            <p class="param-impact"><span class="impact-tag tag-geo">Regional Hazard</span> Identifies tectonic boundary &amp; background seismicity (e.g. Ring of Fire vs stable plate).</p>
+
+                        </div>
+
+                        <div class="control-group">
+
+                            <label>Hypocentral Depth (km): <span id="sim-depth-val" class="sim-val">25</span></label>
+
+                            <input type="range" id="sim-depth" min="2" max="700" value="25" step="1">
+
+                            <p class="param-impact"><span class="impact-tag tag-depth">Wave Attenuation</span> Shallower foci (&lt;30 km) direct peak shear energy into surface cities; deep events (&gt;70 km) dampen ground motion.</p>
+
+                        </div>
+
+                        <div class="control-group" style="margin-top: 1rem;">
+
+                            <label>Fault Mechanism</label>
+
+                            <select id="sim-fault" class="sim-select">
+
+                                <option value="megathrust" selected>Subduction (Megathrust)</option>
+
+                                <option value="thrust">Continental Collision (Thrust / Reverse)</option>
+
+                                <option value="strike-slip">Transform (Strike-Slip)</option>
+
+                                <option value="normal">Divergent (Normal / Rift)</option>
+
+                                <option value="intraplate">Intraplate (Stable Craton)</option>
+
+                            </select>
+
+                            <p class="param-impact"><span class="impact-tag tag-fault">Rupture Scale</span> Subduction megathrusts hold the largest fault contact areas (producing M8.0 to M9.5+); normal faults cap lower.</p>
+
+                        </div>
+
+                        <div class="control-group">
+
+                            <label>Local Soil Condition</label>
+
+                            <select id="sim-soil" class="sim-select">
+
+                                <option value="rock">Hard Bedrock</option>
+
+                                <option value="firm">Firm Soil / Gravel</option>
+
+                                <option value="dense" selected>Dense Alluvium / Stiff Clay</option>
+
+                                <option value="soft">Soft Clay / Sediment (Amplified)</option>
+
+                            </select>
+
+                            <p class="param-impact"><span class="impact-tag tag-soil">Site Resonance</span> Soft saturated clay traps and amplifies seismic waves up to 220%; hard crystalline bedrock dampens shaking.</p>
+
+                        </div>
+
+                        <div class="control-group">
+
+                            <label>Distance to City (km): <span id="sim-dist-val" class="sim-val">45</span></label>
+
+                            <input type="range" id="sim-dist" min="5" max="500" value="45" step="5">
+
+                            <p class="param-impact"><span class="impact-tag tag-dist">Geometric Decay</span> Ground motion decays exponentially with distance as seismic wavefronts spread spherically through crust.</p>
+
+                        </div>
+
+                        <div class="control-group">
+
+                            <label>Tsunami Potential: <span id="sim-tsunami-val" class="sim-val" style="color:var(--accent-terra);">Yes</span></label>
+
+                            <input type="range" id="sim-tsunami" min="0" max="1" value="1" step="1">
+
+                            <p class="param-impact"><span class="impact-tag tag-tsu">Secondary Risk</span> Offshore seafloor displacement generates tsunami waves, multiplying total disaster severity by 1.8x.</p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Right: Clean Predicted Outcome -->
+
+                    <div class="flow-visual animate-on-scroll delay-100">
+
+                        <div class="sim-dashboard">
+
+                            <div class="sim-header">Predicted Outcome — Global Engine</div>
+
+                            <div class="sim-result-grid">
+
+                                <div class="sim-card">
+
+                                    <div class="sim-label">Expected Magnitude</div>
+
+                                    <div class="sim-value" id="sim-out-mag" style="color: var(--accent-terra);">M 8.2</div>
+
+                                </div>
+
+                                <div class="sim-card">
+
+                                    <div class="sim-label">Severity Class</div>
+
+                                    <div class="sim-value" id="sim-out-sev" style="color: var(--accent-leaf);">Catastrophic</div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="sim-context" id="sim-out-context">
+
+                                Adjust parameters to calculate prediction.
+
+                            </div>
+
+                            <div style="margin-top: 2rem;">
+
+                                <a href="#faultlines" data-section="faultlines" class="kepler-btn">
+
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+
+                                    Inspect Global Faultlines in Kepler.gl &rarr;
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Panel 2: Subdued India Regional Simulator -->
+
+            <div id="sim-panel-india" class="sim-panel" style="display:none;">
+
+                <div class="animate-on-scroll">
+
+                    <span style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-sage);">India Subcontinent Benchmark Presets:</span>
+
+                    <div class="sim-presets-bar" id="india-presets-container">
+
+                        <button class="sim-preset-btn active" data-india-preset="bhuj">Bhuj 2001 (M7.7 Intraplate)</button>
+
+                        <button class="sim-preset-btn" data-india-preset="kashmir">Kashmir 2005 (M7.6 Thrust)</button>
+
+                        <button class="sim-preset-btn" data-india-preset="sumatra2004">Sumatra-Andaman 2004 (M9.1)</button>
+
+                        <button class="sim-preset-btn" data-india-preset="sikkim">Sikkim 2011 (M6.9 Thrust)</button>
+
+                        <button class="sim-preset-btn" data-india-preset="nepal2015">Nepal 2015 (M7.8 Collision)</button>
+
+                        <button class="sim-preset-btn" data-india-preset="andaman2009">Andaman 2009 (M7.5 Subduction)</button>
+
+                        <button class="sim-preset-btn" data-india-preset="assam">Assam 2020 (M5.2 Shallow)</button>
+
+                        <button class="sim-preset-btn" data-india-preset="koyna">Koyna 1967 (M6.3 Reservoir-Induced)</button>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="flow-grid" style="align-items: flex-start; gap: 4rem; margin-top: 1rem;">
+
+                    <!-- Left: India Regional Parameters -->
+
+                    <div class="simulator-controls animate-on-scroll">
+
+                        <div class="control-group">
+
+                            <label>Latitude: <span id="india-lat-val" class="sim-val">23.5</span>&deg;</label>
+
+                            <input type="range" id="india-lat" min="1" max="36" value="23.5" step="0.5">
+
+                            <p class="param-impact"><span class="impact-tag tag-geo">Seismic Zone</span> India spans Zone II (low risk, Peninsular Shield) to Zone V (very high risk, NE India &amp; Andaman).</p>
+
+                        </div>
+
+                        <div class="control-group">
+
+                            <label>Longitude: <span id="india-lon-val" class="sim-val">80</span>&deg;</label>
+
+                            <input type="range" id="india-lon" min="60" max="101" value="80" step="0.5">
+
+                            <p class="param-impact"><span class="impact-tag tag-geo">Regional Corridor</span> Western margins (Gujarat/Rann of Kutch) to Eastern Himalayan Arc and Andaman Trench.</p>
+
+                        </div>
+
+                        <div class="control-group">
+
+                            <label>Hypocentral Depth (km): <span id="india-depth-val" class="sim-val">33</span></label>
+
+                            <input type="range" id="india-depth" min="1" max="264" value="33" step="1">
+
+                            <p class="param-impact"><span class="impact-tag tag-depth">Focal Depth</span> Shallow crustal events (&lt;30 km) dominate the Himalayan Front; deep events (&gt;100 km) occur in the Andaman subduction slab.</p>
+
+                        </div>
+
+                        <div class="control-group">
+
+                            <label>Station Count (nst): <span id="india-nst-val" class="sim-val">15</span></label>
+
+                            <input type="range" id="india-nst" min="3" max="200" value="15" step="1">
+
+                            <p class="param-impact"><span class="impact-tag tag-fault">Network Coverage</span> Number of seismic stations used to locate the event. Higher counts improve magnitude estimation reliability.</p>
+
+                        </div>
+
+                        <div class="control-group">
+
+                            <label>Azimuthal Gap (&deg;): <span id="india-gap-val" class="sim-val">80</span></label>
+
+                            <input type="range" id="india-gap" min="10" max="360" value="80" step="5">
+
+                            <p class="param-impact"><span class="impact-tag tag-soil">Station Distribution</span> Gaps &gt;180&deg; indicate poor azimuthal coverage — the event is outside the network, reducing location accuracy.</p>
+
+                        </div>
+
+                        <div class="control-group">
+
+                            <label>RMS Residual (s): <span id="india-rms-val" class="sim-val">0.80</span></label>
+
+                            <input type="range" id="india-rms" min="0" max="3" value="0.8" step="0.05">
+
+                            <p class="param-impact"><span class="impact-tag tag-dist">Travel-Time Fit</span> Root mean square of arrival time residuals. Lower values (&lt;0.5s) indicate well-constrained hypocenters.</p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Right: India Predicted Outcome -->
+
+                    <div class="flow-visual animate-on-scroll delay-100">
+
+                        <div class="sim-dashboard" style="border-color: rgba(245,158,11,0.3);">
+
+                            <div class="sim-header" style="color: #f59e0b;">Predicted Outcome — India Subcontinent Model</div>
+
+                            <div class="sim-result-grid">
+
+                                <div class="sim-card">
+
+                                    <div class="sim-label">Expected Magnitude</div>
+
+                                    <div class="sim-value" id="india-out-mag" style="color: #f59e0b;">M 5.4</div>
+
+                                </div>
+
+                                <div class="sim-card">
+
+                                    <div class="sim-label">Seismic Zone</div>
+
+                                    <div class="sim-value" id="india-out-zone" style="color: var(--accent-leaf);">Zone IV</div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="sim-result-grid" style="margin-top: 1rem;">
+
+                                <div class="sim-card">
+
+                                    <div class="sim-label">RF Model Score</div>
+
+                                    <div class="sim-value" id="india-out-score" style="font-size: 1.4rem;">R² = 0.744</div>
+
+                                </div>
+
+                                <div class="sim-card">
+
+                                    <div class="sim-label">Region</div>
+
+                                    <div class="sim-value" id="india-out-region" style="font-size: 1rem; color: var(--text-sage);">Deccan Plateau</div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="sim-context" id="india-out-context">
+
+                                Adjust parameters to calculate India-specific prediction.
+
+                            </div>
+
+                            <div style="margin-top: 2rem;">
+
+                                <a href="#faultlines" data-section="faultlines" class="kepler-btn" style="background:rgba(245,158,11,0.15); color:#f59e0b; border-color:rgba(245,158,11,0.3);">
+
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+
+                                    Inspect India Seismicity in Kepler.gl &rarr;
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- â”€â”€ Predictive Models â”€â”€ -->
+
+    <section id="models" class="organic-section page-section">
+
+        <div class="content-wrapper">
+
+            <h4 class="animate-on-scroll">Algorithmic Analysis</h4>
+
+            <h2 class="animate-on-scroll delay-100">Five Calibrated Machine Learning Models</h2>
+
+            <p class="lead animate-on-scroll delay-200" style="margin-bottom: 4rem;">
+
+                Five specialized ML systems spanning regression, supervised multi-class classification, spatial clustering, and temporal recurrence analysis â€” evaluated on 150,000+ geological records.
+
+            </p>
+
+
+
+            <div class="tab-nav animate-on-scroll delay-200">
+
+                <button class="tab-btn active" data-tab="mag-tab">1. Magnitude Predictor</button>
+
+                <button class="tab-btn" data-tab="sev-tab">2. Severity Classifier</button>
+
+                <button class="tab-btn" data-tab="int-tab">3. Intensity (MMI) Predictor</button>
+
+                <button class="tab-btn" data-tab="clust-tab">4. Tectonic Clustering</button>
+
+                <button class="tab-btn" data-tab="time-tab">5. Time Series Analysis</button>
+
+            </div>
+
+
+
+            <!-- Model 1: Magnitude -->
+
+            <div class="tab-content active" id="mag-tab">
+
+                <div class="flow-grid">
+
+                    <div class="flow-text">
+
+                        <h3>Magnitude Predictor</h3>
+
+                        <p class="text-muted" style="margin-bottom: 2rem;"><strong>Can we predict earthquake magnitude from spatial and geophysical features?</strong> This regression model uses 18 engineered features â€” hypocentral depth, azimuthal station gap, distance to station, and seasonal cyclical harmonics. Evaluated across Random Forest, XGBoost, and MLP Neural Networks.</p>
+
+                        
+
+                        <div class="visual-frame" style="margin-bottom: 2rem;">
+
+                            <div class="stat-label">Best Algorithm</div>
+
+                            <div style="font-family:var(--font-serif);font-size:2rem;color:var(--accent-terra);margin-bottom:1rem;" id="mag-best-algo">XGBoost</div>
+
+                            <div style="display:flex; flex-wrap:wrap; gap:2rem;">
+
+                                <div><div class="stat-label">R-Squared</div><div class="stat-number" style="font-size:1.8rem;" id="mag-r2">â€”</div></div>
+
+                                <div><div class="stat-label">RMSE</div><div class="stat-number" style="font-size:1.8rem;" id="mag-rmse">â€”</div></div>
+
+                                <div><div class="stat-label">MAE</div><div class="stat-number" style="font-size:1.8rem;" id="mag-mae">â€”</div></div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <h4 style="margin-bottom:0.5rem; color:var(--text-sage); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em;">Feature Importance (Top Signals)</h4>
+
+                        <div class="chart-container" style="height:260px; margin-top: 0.5rem;"><canvas id="chart-mag-features"></canvas></div>
+
+                    </div>
+
+                    <div class="flow-visual">
+
+                        <h4 style="margin-bottom:0.5rem; color:var(--text-sage); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em;">Predicted vs Observed Magnitude</h4>
+
+                        <div class="chart-container" style="height:480px;"><canvas id="chart-mag-scatter"></canvas></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Model 2: Severity -->
+
+            <div class="tab-content" id="sev-tab">
+
+                <div class="flow-grid">
+
+                    <div class="flow-text">
+
+                        <h3>Destruction & Severity Classifier</h3>
+
+                        <p class="text-muted" style="margin-bottom: 2rem;"><strong>What factors govern human and structural destruction?</strong> Classifies earthquakes into 4 calibrated tiers (Low, Medium, High, Catastrophic) using NOAA impact records. Stratified class balancing ensures catastrophic seismic events are accurately isolated.</p>
+
+                        
+
+                        <div class="visual-frame" style="margin-bottom: 2rem;">
+
+                            <div class="stat-label">Best Algorithm</div>
+
+                            <div style="font-family:var(--font-serif);font-size:2rem;color:var(--accent-terra);margin-bottom:1rem;" id="sev-best-algo">XGBoost</div>
+
+                            <div style="display:flex; flex-wrap:wrap; gap:2rem;">
+
+                                <div><div class="stat-label">Accuracy</div><div class="stat-number" style="font-size:1.8rem; color:var(--accent-terra);" id="sev-acc">â€”</div></div>
+
+                                <div><div class="stat-label">Weighted F1</div><div class="stat-number" style="font-size:1.8rem; color:var(--accent-terra);" id="sev-f1">â€”</div></div>
+
+                                <div><div class="stat-label">Precision</div><div class="stat-number" style="font-size:1.8rem;" id="sev-prec">â€”</div></div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <h4 style="margin-bottom:0.5rem; color:var(--text-sage); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em;">Severity Class Distribution</h4>
+
+                        <div class="chart-container" style="height:260px; margin-top:0.5rem;"><canvas id="chart-sev-donut"></canvas></div>
+
+                    </div>
+
+                    <div class="flow-visual">
+
+                        <h4 style="margin-bottom:0.5rem; color:var(--text-sage); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em;">Confusion Matrix</h4>
+
+                        <div class="chart-container" style="height:320px; margin-bottom: 2rem;"><canvas id="chart-sev-matrix"></canvas></div>
+
+
+
+                        <h4 style="margin-bottom:0.5rem; color:var(--text-sage); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em;">Multi-Class ROC / Calibration Curves</h4>
+
+                        <div class="chart-container" style="height:280px;"><canvas id="chart-sev-roc"></canvas></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Model 3: Intensity (MMI) Predictor -->
+
+            <div class="tab-content" id="int-tab">
+
+                <div class="flow-grid">
+
+                    <div class="flow-text">
+
+                        <h3>Ground Shaking Intensity (MMI) Predictor</h3>
+
+                        <p class="text-muted" style="margin-bottom: 2rem;"><strong>How violently will the ground shake at a given distance?</strong> Trained on 130,000+ macroseismic felt reports from USGS (1852â€“2026). Predicts Modified Mercalli Intensity (MMI Iâ€“XII) incorporating focal depth, epicentral distance, and non-linear crustal attenuation.</p>
+
+                        
+
+                        <div class="visual-frame" style="margin-bottom: 2rem;">
+
+                            <div class="stat-label">Best Algorithm</div>
+
+                            <div style="font-family:var(--font-serif);font-size:2rem;color:var(--accent-terra);margin-bottom:1rem;" id="int-best-algo">Random Forest</div>
+
+                            <div style="display:flex; flex-wrap:wrap; gap:2rem;">
+
+                                <div><div class="stat-label">R-Squared</div><div class="stat-number" style="font-size:1.8rem;" id="int-r2">â€”</div></div>
+
+                                <div><div class="stat-label">RMSE (MMI)</div><div class="stat-number" style="font-size:1.8rem;" id="int-rmse">â€”</div></div>
+
+                                <div><div class="stat-label">MAE</div><div class="stat-number" style="font-size:1.8rem;" id="int-mae">â€”</div></div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <h4 style="margin-bottom:0.5rem; color:var(--text-sage); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em;">Key Attenuation Drivers</h4>
+
+                        <div class="chart-container" style="height:260px; margin-top:0.5rem;"><canvas id="chart-int-features"></canvas></div>
+
+                    </div>
+
+                    <div class="flow-visual">
+
+                        <h4 style="margin-bottom:0.5rem; color:var(--text-sage); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em;">Ground Shaking Attenuation Curves</h4>
+
+                        <div class="chart-container" style="height:320px; margin-bottom: 2rem;"><canvas id="chart-int-attenuation"></canvas></div>
+
+
+
+                        <h4 style="margin-bottom:0.5rem; color:var(--text-sage); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em;">Predicted vs Observed Intensity (MMI)</h4>
+
+                        <div class="chart-container" style="height:280px;"><canvas id="chart-int-scatter"></canvas></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Model 4: Clustering -->
+
+            <div class="tab-content" id="clust-tab">
+
+                <div class="flow-grid reverse">
+
+                    <div class="flow-visual">
+
+                        <h4 style="margin-bottom:0.5rem; color:var(--text-sage); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em;">2D Global Tectonic Cluster Map</h4>
+
+                        <div class="chart-container" style="height:460px;"><canvas id="chart-clust-map"></canvas></div>
+
+                    </div>
+
+                    <div class="flow-text">
+
+                        <h3>Tectonic Boundary Discovery</h3>
+
+                        <p class="text-muted" style="margin-bottom: 2rem;"><strong>Can algorithms delineate tectonic plate boundaries autonomously?</strong> K-Means and DBSCAN spatial clustering partition 19,800+ global earthquakes into distinct seismic fault zones without human geological annotations.</p>
+
+                        
+
+                        <h4 style="margin-bottom:0.5rem; color:var(--text-sage); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em;">Optimal Cluster Evaluation (Silhouette Scores)</h4>
+
+                        <div class="chart-container" style="height:220px; margin-top:0.5rem; margin-bottom: 2rem;"><canvas id="chart-clust-sil"></canvas></div>
+
+
+
+                        <h4 style="margin-bottom:0.5rem; color:var(--text-sage); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em;">Cluster Geological Profiles</h4>
+
+                        <div id="clust-stats-container"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Model 5: Time Series -->
+
+            <div class="tab-content" id="time-tab">
+
+                <h3 style="margin-bottom: 0.5rem;">Seismic Recurrence & Frequency Trends</h3>
+
+                <p class="text-muted" style="margin-bottom: 2rem;">Analysis of global earthquake occurrence rates (2015â€“2026), testing for stationarity, seasonal variation, and multi-year rolling energy release.</p>
+
+                
+
+                <h4 style="margin-bottom:0.5rem; color:var(--text-sage); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em;">Global Monthly Earthquake Frequency & 6-Month Rolling Average</h4>
+
+                <div class="chart-container" style="height:320px; margin-bottom: 3rem;"><canvas id="chart-time-trend"></canvas></div>
+
+                
+
+                <div class="flow-grid">
+
+                    <div class="flow-text">
+
+                        <h4 style="margin-bottom:0.5rem; color:var(--text-sage); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em;">Annual Earthquake Volume (M â‰¥ 5.0)</h4>
+
+                        <div class="chart-container" style="height:280px;"><canvas id="chart-time-yearly"></canvas></div>
+
+                    </div>
+
+                    <div class="flow-visual">
+
+                        <h4 style="margin-bottom:0.5rem; color:var(--text-sage); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em;">Monthly Mean Magnitude Trajectory</h4>
+
+                        <div class="chart-container" style="height:280px;"><canvas id="chart-time-monthly"></canvas></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ── Tectonic Map (Kepler.gl 3D Geospatial Engine) ── -->
+
+    <section id="faultlines" class="organic-section page-section">
+
+        <div class="content-wrapper">
+
+            <h4 class="animate-on-scroll">Spatial Analysis</h4>
+
+            <h2 class="animate-on-scroll delay-100">Global Faultlines &amp; Tectonic Architecture</h2>
+
+            <p class="lead animate-on-scroll delay-200" style="margin-bottom: 2.5rem; max-width: 900px;">
+                45,747 real instrumental &amp; historical earthquake records across three catalogs &mdash; 19,841 USGS global events (M &ge; 5.0, 2015&ndash;2026), 17,805 India-region records (2014&ndash;2024), and 8,101 USA intensity &amp; historical records (EQINT_TSQP). Color-coded by magnitude: <strong style="color:#22c55e;">green</strong> (low) &rarr; <strong style="color:#f59e0b;">amber</strong> (moderate) &rarr; <strong style="color:#ef4444;">red</strong> (severe). India records feature cyan halos; USA records feature amber halos.
+            </p>
+
+
+
+            <div class="kepler-wrapper animate-on-scroll delay-200">
+
+                <div class="kepler-toolbar" style="flex-wrap: wrap; gap: 0.8rem; align-items: center;">
+
+                    <div class="kepler-title">
+
+                        <span class="pulse-dot"></span>
+
+                        <strong>Tectonic Map &amp; Geospatial Engine</strong>
+
+                    </div>
+
+
+
+                    <!-- Multi-View Mode Switcher (Kepler 3D Tilted, Interactive Globe, 2D Alert Map) -->
+
+                    <div class="view-switch-tabs">
+
+                        <button id="view-tab-kepler" class="kepler-btn active" onclick="switchMapPerspective('kepler')">
+
+                            📐 3D Tilted Map (Kepler.gl)
+
+                        </button>
+
+                        <button id="view-tab-globe" class="kepler-btn secondary" onclick="switchMapPerspective('globe')">
+
+                            🌐 3D Seismic Globe
+
+                        </button>
+
+                        <button id="view-tab-leaflet" class="kepler-btn secondary" onclick="switchMapPerspective('leaflet')">
+
+                            🗺️ 2D Alert Map
+
+                        </button>
+
+                    </div>
+
+
+
+                    
+
+
+
+                    <div class="kepler-actions">
+
+                        <a href="kepler_map.html" target="_blank" class="kepler-btn" title="Open standalone full-window Kepler.gl">
+
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+
+                            Standalone Kepler &nearr;
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- View 1: Kepler.gl 3D Tilted Geospatial View -->
+
+                <div id="kepler-3d-view">
+
+                    <iframe id="kepler-frame" class="kepler-frame-elem" src="kepler_map.html" title="Kepler.gl 3D Seismic Visualization"></iframe>
+
+                </div>
+
+
+
+                <!-- View 2: 3D Interactive Seismic Globe (WebGL Sphere Engine) -->
+
+                <div id="globe-3d-view" style="display:none; position:relative; background:#040707; border-radius: 0 0 12px 12px; overflow:hidden;">
+
+                    <div class="globe-sub-toolbar" style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; padding: 10px 16px; background: rgba(10,14,12,0.9); border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 0.85rem;">
+
+                        <div style="display:flex; align-items:center; gap: 10px;">
+
+                            <span style="color:#00f5ff; font-weight:600;">Interactive 3D Sphere</span>
+
+                            <span class="text-muted" style="font-size:0.8rem;">Drag to orbit · Scroll to zoom · Click pins for details</span>
+
+                        </div>
+
+                        <div style="display:flex; gap: 6px; flex-wrap:wrap;">
+
+                            <button id="globe-rotate-btn" class="kepler-btn secondary" style="padding:4px 9px; font-size:11px;" onclick="toggleGlobeAutoRotate()">🔄 Auto-Rotate: ON</button>
+
+                            <button class="kepler-btn secondary" style="padding:4px 9px; font-size:11px;" onclick="globePreset('india')">🇮🇳 Focus India</button>
+                            <button class="kepler-btn secondary" style="padding:4px 9px; font-size:11px;" onclick="globePreset('usa')">🇺🇸 Focus USA</button>
+
+                            <button class="kepler-btn secondary" style="padding:4px 9px; font-size:11px;" onclick="globePreset('ring')">🌋 Ring of Fire</button>
+
+                            <button class="kepler-btn secondary" style="padding:4px 9px; font-size:11px;" onclick="globePreset('reset')">🌍 Reset Orbit</button>
+
+                        </div>
+
+                    </div>
+
+                    <div id="globe-canvas-container" style="width:100%; height:650px; cursor:grab;"></div>
+
+                </div>
+
+
+
+                <!-- View 3: 2D Leaflet Alert Map (Flat Cartographic Projection) -->
+
+                <div id="leaflet-2d-view" style="display:none; padding:1.5rem; background:rgba(0,0,0,0.5);">
+
+                    <div id="map" style="height: 650px; border-radius: 8px;"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- â”€â”€ Risk Zones â”€â”€ -->
+
+    <section id="risk" class="organic-section alt page-section">
+
+        <div class="content-wrapper">
+
+            <div class="flow-grid">
+
+                <div class="flow-text animate-on-scroll">
+
+                    <h4>Risk Assessment</h4>
+
+                    <h2>The Most Dangerous Ground</h2>
+
+                    <p class="lead" style="font-size: 1.1rem; margin-top: 2rem; margin-bottom: 3rem;">
+
+                        Indonesia leads with nearly 2,000 events at the convergence of four tectonic plates. The magnitude distribution follows the Gutenberg-Richter law â€” each unit increase in magnitude means roughly ten times fewer earthquakes.
+
+                    </p>
+
+                    <div id="risk-regions-list"></div>
+
+                </div>
+
+                <div class="flow-visual animate-on-scroll delay-100">
+
+                    <h4 style="margin-bottom:0.5rem; color:var(--text-sage);">Magnitude Distribution</h4>
+
+                    <div class="chart-container" style="height:450px;"><canvas id="chart-risk-mag"></canvas></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- â”€â”€ Methodology â”€â”€ -->
+
+    
+
+
+
+    <!-- â”€â”€ Footer â”€â”€ -->
+
+    <footer>
+
+        <div class="content-wrapper">
+
+            <div class="footer-content">
+
+                <div class="footer-brand">
+
+                    <h2 style="margin-bottom: 0;">On Shaky Grounds</h2>
+
+                    <p class="text-muted">Understanding the forces beneath our feet through data and machine learning.</p>
+
+                </div>
+
+                <div class="footer-nav">
+
+                    <a href="#archives">Archives</a>
+
+                    <a href="#models">Models</a>
+
+                    <a href="#faultlines">Map</a>
+
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+
+                <span>&copy; 2026 Geological ML Project</span>
+
+                <span>Data by USGS, NOAA & India Regional Catalog</span>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- â”€â”€ Dataset Modal â”€â”€ -->
+
+    <div id="dataset-modal" class="modal">
+
+        <div class="modal-content">
+
+            <span class="close-btn">&times;</span>
+
+            <h2 id="modal-title">Dataset Preview</h2>
+
+            <div class="table-responsive">
+
+                <table class="data-table" id="modal-table">
+
+                    <thead id="modal-thead"></thead>
+
+                    <tbody id="modal-tbody"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <script src="vendor/chart.umd.min.js"></script>
+
+    <script src="vendor/leaflet.js"></script>
+
+    <script src="vendor/globe.gl.min.js"></script>
+
+    <script src="js/data_payload.js?v=16"></script>
+
+    <script src="js/charts.js?v=16"></script>
+
+    <script src="js/globe.js?v=16"></script>
+
+    <script src="js/app.js?v=16"></script>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
